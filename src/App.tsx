@@ -33,8 +33,7 @@ function App() {
   const [isRebootMode, setIsRebootMode] = useState(false)
   
   // Hooks
-  const mouse = useMouse(document.body)
-  const windowSize = useWindowSize()
+  const mouse = useMouse({ current: document.body } as React.RefObject<Element>)
   
   // Mouse trail effect
   useEffect(() => {
@@ -146,7 +145,7 @@ function App() {
       move: {
         enable: true,
         speed: 0.5 + glitchIntensity * 2,
-        direction: "none",
+        direction: "none" as const,
         random: true,
         straight: false,
         outModes: { default: "bounce" },
