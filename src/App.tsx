@@ -148,7 +148,7 @@ function App() {
         direction: "none" as const,
         random: true,
         straight: false,
-        outModes: { default: "bounce" },
+        outModes: { default: "bounce" as const },
         trail: {
           enable: glitchIntensity > 0.7,
           length: 3,

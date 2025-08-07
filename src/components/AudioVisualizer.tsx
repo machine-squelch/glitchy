@@ -142,7 +142,7 @@ const AudioVisualizer: React.FC<AudioVisualizerProps> = ({ isActive, intensity }
       if (!analyserRef.current || !dataArrayRef.current) return
       
       animationIdRef.current = requestAnimationFrame(draw)
-      analyserRef.current.getByteFrequencyData(dataArrayRef.current as Uint8Array)
+      analyserRef.current.getByteFrequencyData(dataArrayRef.current as Uint8Array<ArrayBuffer>)
       
       const canvas = canvasRef.current
       if (!canvas) return
