@@ -1,0 +1,444 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+
+:root {
+  --glitch-color-1: #ff00ff;
+  --glitch-color-2: #00ffff;
+  --glitch-color-3: #ffff00;
+  --distress-bg: #0a0a0a;
+  --text-primary: #f0f0f0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100vw;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+.app {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background: var(--distress-bg);
+  overflow: hidden;
+  font-family: 'Orbitron', monospace;
+}
+
+/* Noise overlay */
+.noise-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.03;
+  z-index: 1;
+  background-image: 
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 2px,
+      rgba(255, 255, 255, 0.03) 2px,
+      rgba(255, 255, 255, 0.03) 4px
+    );
+  animation: noise 0.2s steps(2) infinite;
+}
+
+@keyframes noise {
+  0% { transform: translate(0, 0); }
+  10% { transform: translate(-2%, -2%); }
+  20% { transform: translate(2%, 2%); }
+  30% { transform: translate(-2%, 2%); }
+  40% { transform: translate(2%, -2%); }
+  50% { transform: translate(-2%, 0); }
+  60% { transform: translate(2%, 0); }
+  70% { transform: translate(0, -2%); }
+  80% { transform: translate(0, 2%); }
+  90% { transform: translate(1%, 1%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Scanlines */
+.scanlines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  background: linear-gradient(
+    to bottom,
+    transparent 50%,
+    rgba(0, 255, 255, 0.03) 51%
+  );
+  background-size: 100% 4px;
+  animation: scanlines 8s linear infinite;
+}
+
+@keyframes scanlines {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(10px); }
+}
+
+/* Glitch text effect */
+.glitch-text {
+  position: relative;
+  color: var(--text-primary);
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  animation: textGlitch 3s infinite;
+  text-shadow: 
+    0.05em 0 0 rgba(255, 0, 255, 0.75),
+    -0.025em -0.05em 0 rgba(0, 255, 255, 0.75),
+    0.025em 0.05em 0 rgba(255, 255, 0, 0.75);
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.glitch-text::before {
+  animation: glitch-1 0.5s infinite;
+  color: var(--glitch-color-1);
+  z-index: -1;
+  opacity: 0.8;
+}
+
+.glitch-text::after {
+  animation: glitch-2 0.5s infinite;
+  color: var(--glitch-color-2);
+  z-index: -2;
+  opacity: 0.8;
+}
+
+@keyframes glitch-1 {
+  0% {
+    clip-path: inset(40% 0 61% 0);
+    transform: translate(-2px, -2px);
+  }
+  20% {
+    clip-path: inset(92% 0 1% 0);
+    transform: translate(2px, 2px);
+  }
+  40% {
+    clip-path: inset(43% 0 1% 0);
+    transform: translate(-2px, 2px);
+  }
+  60% {
+    clip-path: inset(25% 0 58% 0);
+    transform: translate(2px, -2px);
+  }
+  80% {
+    clip-path: inset(54% 0 7% 0);
+    transform: translate(-2px, -2px);
+  }
+  100% {
+    clip-path: inset(58% 0 43% 0);
+    transform: translate(2px, 2px);
+  }
+}
+
+@keyframes glitch-2 {
+  0% {
+    clip-path: inset(65% 0 8% 0);
+    transform: translate(2px, -2px);
+  }
+  20% {
+    clip-path: inset(24% 0 20% 0);
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    clip-path: inset(78% 0 10% 0);
+    transform: translate(2px, 2px);
+  }
+  60% {
+    clip-path: inset(19% 0 68% 0);
+    transform: translate(-2px, -2px);
+  }
+  80% {
+    clip-path: inset(32% 0 42% 0);
+    transform: translate(2px, -2px);
+  }
+  100% {
+    clip-path: inset(88% 0 1% 0);
+    transform: translate(-2px, 2px);
+  }
+}
+
+@keyframes textGlitch {
+  0%, 100% {
+    text-shadow: 
+      0.05em 0 0 rgba(255, 0, 255, 0.75),
+      -0.05em -0.025em 0 rgba(0, 255, 255, 0.75),
+      0.025em 0.05em 0 rgba(255, 255, 0, 0.75);
+  }
+  25% {
+    text-shadow: 
+      -0.05em -0.025em 0 rgba(255, 0, 255, 0.75),
+      0.025em 0.025em 0 rgba(0, 255, 255, 0.75),
+      -0.05em -0.05em 0 rgba(255, 255, 0, 0.75);
+  }
+  50% {
+    text-shadow: 
+      0.025em 0.05em 0 rgba(255, 0, 255, 0.75),
+      0.05em 0 0 rgba(0, 255, 255, 0.75),
+      0 -0.05em 0 rgba(255, 255, 0, 0.75);
+  }
+  75% {
+    text-shadow: 
+      -0.025em 0 0 rgba(255, 0, 255, 0.75),
+      -0.025em -0.025em 0 rgba(0, 255, 255, 0.75),
+      -0.025em -0.05em 0 rgba(255, 255, 0, 0.75);
+  }
+}
+
+/* Distressed button */
+.distress-button {
+  background: transparent;
+  border: 2px solid var(--glitch-color-1);
+  color: var(--text-primary);
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s;
+  animation: buttonFlicker 4s infinite;
+}
+
+@keyframes buttonFlicker {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 
+      0 0 10px var(--glitch-color-1),
+      inset 0 0 10px rgba(255, 0, 255, 0.2);
+  }
+  50% {
+    opacity: 0.8;
+    box-shadow: 
+      0 0 20px var(--glitch-color-2),
+      inset 0 0 20px rgba(0, 255, 255, 0.2);
+  }
+}
+
+.distress-button:hover {
+  transform: scale(1.05);
+  border-color: var(--glitch-color-2);
+  text-shadow: 0 0 10px currentColor;
+  animation: buttonGlitch 0.3s infinite;
+}
+
+@keyframes buttonGlitch {
+  0% {
+    transform: translate(0);
+    filter: hue-rotate(0deg);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+    filter: hue-rotate(90deg);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+    filter: hue-rotate(180deg);
+  }
+  60% {
+    transform: translate(2px, 2px);
+    filter: hue-rotate(270deg);
+  }
+  80% {
+    transform: translate(2px, -2px);
+    filter: hue-rotate(360deg);
+  }
+  100% {
+    transform: translate(0);
+    filter: hue-rotate(0deg);
+  }
+}
+
+.distress-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--glitch-color-2),
+    transparent
+  );
+  transition: left 0.5s;
+}
+
+.distress-button:hover::before {
+  left: 100%;
+}
+
+/* Content container */
+.content-container {
+  position: relative;
+  z-index: 10;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  gap: 3rem;
+}
+
+/* Flicker animation for elements */
+.flicker {
+  animation: flicker 2s infinite;
+}
+
+@keyframes flicker {
+  0%, 100% {
+    opacity: 1;
+  }
+  92.5% {
+    opacity: 1;
+  }
+  93% {
+    opacity: 0.6;
+  }
+  93.5% {
+    opacity: 1;
+  }
+  94% {
+    opacity: 0.4;
+  }
+  94.5% {
+    opacity: 1;
+  }
+}
+
+/* Corrupted text */
+.corrupted-text {
+  font-family: 'Orbitron', monospace;
+  color: var(--text-primary);
+  font-size: 1.2rem;
+  position: relative;
+  display: inline-block;
+}
+
+.corrupted-text::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  color: var(--glitch-color-1);
+  opacity: 0;
+  animation: corruptedFlash 3s infinite;
+}
+
+@keyframes corruptedFlash {
+  0%, 90%, 100% {
+    opacity: 0;
+  }
+  92%, 98% {
+    opacity: 1;
+  }
+}
+
+/* Grid background */
+.grid-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+  opacity: 0.1;
+  animation: gridMove 20s linear infinite;
+}
+
+@keyframes gridMove {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(50px, 50px);
+  }
+}
+
+/* Error message style */
+.error-message {
+  background: rgba(255, 0, 0, 0.1);
+  border: 1px solid rgba(255, 0, 0, 0.5);
+  padding: 1rem;
+  margin: 1rem 0;
+  font-family: 'Orbitron', monospace;
+  color: #ff6b6b;
+  position: relative;
+  overflow: hidden;
+}
+
+.error-message::before {
+  content: 'ERROR: ';
+  color: #ff0000;
+  font-weight: 700;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+/* VHS tracking effect */
+.vhs-tracking {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 10px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  animation: tracking 5s linear infinite;
+  pointer-events: none;
+  z-index: 3;
+}
+
+@keyframes tracking {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}

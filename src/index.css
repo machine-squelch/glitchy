@@ -1,0 +1,158 @@
+:root {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: #0a0a0a;
+  color: #f0f0f0;
+  overflow-x: hidden;
+}
+
+/* Glitch flicker on page load */
+@keyframes initialGlitch {
+  0% {
+    opacity: 1;
+    transform: scale(1) translateX(0);
+    filter: brightness(1) contrast(1);
+  }
+  2% {
+    opacity: 0.8;
+    transform: scale(1.01) translateX(-2px);
+    filter: brightness(1.2) contrast(1.5);
+  }
+  4% {
+    opacity: 1;
+    transform: scale(0.99) translateX(2px);
+    filter: brightness(0.8) contrast(0.8);
+  }
+  6% {
+    opacity: 0.9;
+    transform: scale(1.02) translateX(-1px);
+    filter: brightness(1.1) contrast(1.2) hue-rotate(5deg);
+  }
+  8% {
+    opacity: 1;
+    transform: scale(1) translateX(0);
+    filter: brightness(1) contrast(1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateX(0);
+    filter: brightness(1) contrast(1);
+  }
+}
+
+body {
+  animation: initialGlitch 2s ease-out;
+}
+
+/* Custom selection */
+::selection {
+  background: rgba(255, 0, 255, 0.5);
+  color: #fff;
+  text-shadow: 0 0 5px rgba(255, 0, 255, 0.8);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  background: #0a0a0a;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 255, 255, 0.1);
+  border: 1px solid rgba(0, 255, 255, 0.2);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 0, 255, 0.5);
+  border: 1px solid rgba(255, 0, 255, 0.8);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 0, 255, 0.8);
+  box-shadow: 0 0 10px rgba(255, 0, 255, 0.8);
+}
+
+/* Global text effects */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+a {
+  color: #00ffff;
+  text-decoration: none;
+  position: relative;
+  transition: all 0.3s;
+}
+
+a:hover {
+  color: #ff00ff;
+  text-shadow: 0 0 10px currentColor;
+}
+
+a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: currentColor;
+  transition: width 0.3s;
+}
+
+a:hover::after {
+  width: 100%;
+}
+
+/* Distress overlay for images */
+img {
+  filter: contrast(1.1) brightness(0.9);
+  transition: filter 0.3s;
+}
+
+img:hover {
+  filter: contrast(1.3) brightness(1.1) saturate(1.2);
+}
+
+/* Focus styles */
+*:focus {
+  outline: 2px solid rgba(0, 255, 255, 0.5);
+  outline-offset: 2px;
+}
+
+/* Loading animation */
+@keyframes loading {
+  0% {
+    content: 'LOADING.';
+  }
+  33% {
+    content: 'LOADING..';
+  }
+  66% {
+    content: 'LOADING...';
+  }
+  100% {
+    content: 'LOADING.';
+  }
+}
+
+.loading::after {
+  content: 'LOADING.';
+  animation: loading 1.5s infinite;
+}
