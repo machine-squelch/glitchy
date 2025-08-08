@@ -17,7 +17,7 @@ const DistortedText: React.FC<DistortedTextProps> = ({ text, intensity }) => {
 
     const interval = setInterval(() => {
       const chars = text.split('')
-      const distorted = chars.map((char) => {
+      const distorted = chars.map((char, index) => {
         if (Math.random() < intensity * 0.1) {
           const glitchChars = '!@#$%^&*()_+-=[]{}|;:,.<>?/~`'
           return glitchChars[Math.floor(Math.random() * glitchChars.length)]
